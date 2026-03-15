@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Artopia Virtual Art Gallery</title>
+    <!-- Google Fonts - Elegant Serif Collection -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Georgia&family=Cormorant+Garamond:wght@400;500;600;700&family=Cambria&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for decorative icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1a2e; /* Deep Navy Blue */
+            --secondary: #16213e; /* Dark Blue */
+            --accent: #0f3460; /* Rich Blue */
+            --light: #e2e2e2; /* Light Gray */
+            --gold: #99744A;   /* Warm Brown (Gold) */
+            --dark: #0d0d1a; /* Almost Black */
+        }
+        
+        body {
+            font-family: 'Georgia', 'Cambria', serif;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            color: var(--light);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Elegant serif typography hierarchy */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+        }
+        
+        p, .lead {
+            font-family: 'Georgia', 'Cambria', serif;
+            font-weight: 400;
+            line-height: 1.7;
+        }
+        
+        /* Navbar styling */
+        .navbar {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(153, 116, 74, 0.2);
+        }
+        
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            font-size: 2rem;
+            color: var(--gold) !important;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-link {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--light) !important;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: color 0.3s ease;
+            font-size: 1.05rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--gold) !important;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 70%;
+        }
+        
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 4rem 0 3rem;
+            position: relative;
+        }
+        
+        .page-title {
+            font-size: 3.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 1rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.3rem;
+            color: var(--light);
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            font-family: 'Georgia', serif;
+        }
+        
+        /* History Section */
+        .history-section {
+            padding: 3rem 0;
+        }
+        
+        .history-container {
+            background: rgba(22, 33, 62, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 3rem;
+            border: 2px solid rgba(153, 116, 74, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+        }
+        
+        .history-container:hover {
+            border-color: rgba(153, 116, 74, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+        }
+        
+        .history-title {
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .history-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+        
+        .history-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--light);
+            opacity: 0.95;
+        }
+        
+        /* Main Container - Two Vertical Sections */
+        .main-container {
+            padding: 4rem 0 5rem;
+        }
+        
+        /* Left Section - Image with Card */
+        .image-section {
+            position: relative;
+        }
+        
+        .gallery-container {
+            position: relative;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            border: 3px solid var(--gold);
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: brightness(1.2) contrast(1.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-container:hover .gallery-image {
+            transform: scale(1.02);
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-25px) rotate(1deg);
+            }
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            padding: 4rem 0 2rem;
+            margin-top: 5rem;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid #99744A;
+        }
+        
+        .footer-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+        
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #99744A;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            transition: all 0.3s ease;
+            color: var(--light);
+            font-size: 1.1rem;
+        }
+        
+        .social-icon:hover {
+            background: var(--gold);
+            transform: translateY(-3px);
+            color: var(--dark);
+        }
+        
+        .footer-link {
+            color: var(--light) !important;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .footer-link:hover {
+            color: var(--gold) !important;
+            text-decoration: underline;
+        }
+        
+        /* Experience Card */
+        .experience-card {
+            position: absolute;
+          
+            bottom: 25px;
+            left: 25px;
+            background: rgba(26, 26, 46, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 1.8rem;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            border: 2px solid var(--gold);
+            max-width: 280px;
+            z-index: 10;
+            transition: all 0.4s ease;
+        }
+        
+        .experience-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(153, 116, 74, 0.4);
+            border-color: rgba(153, 116, 74, 0.7);
+        }
+        
+        .experience-number {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .experience-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--light);
+            font-family: 'Georgia', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .experience-gold-line {
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+            margin: 8px auto;
+            border-radius: 1px;
+        }
+        
+        /* Right Section - Vision & Mission Horizontally */
+        .vm-section {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            gap: 2rem;
+        }
+        
+        .vm-card {
+            background: rgba(22, 33, 62, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 2px solid rgba(153, 116, 74, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            flex: 1;
+        }
+        
+        .vm-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 15px 40px rgba(153, 116, 74, 0.3);
+        }
+        
+        .vm-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 70px;
+            height: 70px;
+            background: rgba(153, 116, 74, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            margin: 0 auto;
+        }
+        
+        .vm-card:hover .vm-icon {
+            background: rgba(153, 116, 74, 0.2);
+            transform: scale(1.1);
+            color: #b89c7a;
+        }
+        
+        .vm-title {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+            text-align: center;
+        }
+        
+        .vm-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--light);
+            opacity: 0.9;
+            text-align: center;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .page-title {
+                font-size: 2.8rem;
+            }
+            
+            .history-container {
+                padding: 2rem;
+            }
+            
+            .experience-card {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                margin: 2rem auto 0;
+                max-width: 300px;
+            }
+            
+            .vm-section {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .vm-card {
+                margin-bottom: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.3rem;
+            }
+            
+            .nav-link {
+                margin: 0 0.4rem;
+                font-size: 1rem;
+            }
+            
+            .history-title {
+                font-size: 1.8rem;
+            }
+            
+            .vm-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .experience-number {
+                font-size: 2.2rem;
+            }
+            
+            .navbar-brand {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Artopia</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="qwenhome.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="qwengallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="qwenartists.html">Artists</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="qwenservices.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="qwenabout.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="qwencontact.html">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <h1 class="page-title">Learn more about us</h1>
+        <p class="page-subtitle">Discover the story, vision, and passion behind Artopia's journey as a premier virtual art gallery</p>
+    </section>
+
+    <!-- History Section -->
+    <section class="history-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="history-container">
+                        <h2 class="history-title">Our History</h2>
+                        <p class="history-text">
+                            Founded in 2008, Artopia began as a passionate endeavor to bridge the gap between traditional art appreciation and the digital age. What started as a small virtual showcase for local artists has evolved into a globally recognized platform that celebrates creativity in all its forms. Over the years, we have curated over 500+ art campaigns, collaborated with artists from 45+ countries, and pioneered innovative ways to experience art through cutting-edge virtual reality and augmented reality technologies.
+                        </p>
+                        <p class="history-text mt-4">
+                            Our founder, Eleanor Winters, envisioned a space where art transcends physical boundaries and becomes accessible to everyone, regardless of geographical location. This vision has guided our growth, leading us to develop proprietary digital exhibition spaces that replicate the immersive experience of walking through a physical gallery, complete with ambient sounds, interactive elements, and detailed artist narratives.
+                        </p>
+                        <p class="history-text mt-4">
+                            Today, Artopia stands as a testament to the power of technology in democratizing art appreciation, while maintaining the sophistication and authenticity that art lovers demand. We continue to push boundaries, exploring new frontiers in digital art preservation, NFT integration, and virtual curation that honors both the artist's intent and the viewer's experience.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Container - Two Vertical Sections -->
+    <section class="main-container">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Left Section: Image with Card -->
+                <div class="col-lg-6">
+                    <div class="image-section">
+                        <div class="gallery-container">
+                            <img src="image copy.png" 
+                                 alt="Artopia Virtual Gallery" 
+                                 class="gallery-image">
+                            <div class="experience-card">
+                                <div class="experience-number">15</div>
+                                <div class="experience-gold-line"></div>
+                                <div class="experience-text">Years of Experience</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Section: Vision & Mission Horizontally (Stacked Vertically on mobile) -->
+                <div class="col-lg-6">
+                    <div class="vm-section">
+                        <div class="vm-card">
+                            <div class="vm-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h3 class="vm-title">Our Vision</h3>
+                            <p class="vm-text">
+                                To create a boundless digital universe where art knows no borders, connecting creators and collectors through transformative virtual experiences that preserve the essence and emotion of artistic expression.
+                            </p>
+                        </div>
+                        
+                        <div class="vm-card">
+                            <div class="vm-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <h3 class="vm-title">Our Mission</h3>
+                            <p class="vm-text">
+                                To democratize art appreciation through innovative technology while maintaining the highest standards of curation, authenticity, and artist representation in the digital realm.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ 
+   <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h3 class="footer-title">Artopia</h3>
+                    <p class="mb-3">Where digital art meets imagination in a boundless virtual space.</p>
+                    <div class="mt-3">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-pinterest"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="qwengallery.html" class="footer-link">Gallery</a></li>
+                        <li class="mb-2"><a href="qwenartists.html" class="footer-link">Featured Artists</a></li>
+                        <li class="mb-2"><a href="qwenservices.html" class="footer-link">Art Services</a></li>
+                        <li class="mb-2"><a href="qwenabout.html" class="footer-link">About Us</a></li>
+                        <li class="mb-2"><a href="qwenhome.html" class="footer-link">Home</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="footer-title">Contact Us</h4>
+                    <div class="contact-info mb-3">
+                        <p><i class="fas fa-envelope"></i> info@artopia.com</p>
+                        <p><i class="fas fa-phone"></i> +92 3123-4567</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Virtual Gallery, Worldwide</p>
+                    </div>
+                    <div class="mt-3">
+                        <p class="mb-1"><i class="fas fa-clock me-2"></i> Open 24/7</p>
+                        <p><i class="fas fa-globe me-2"></i> www.artopia.com</p>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(233, 69, 96, 0.2);">
+            <div class="text-center">
+                <p class="mb-0">© 2023 Artopia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

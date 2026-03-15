@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artopia - Virtual Art Gallery</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons (only for non-navbar elements) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1a2e; /* Deep Navy Blue */
+            --secondary: #16213e; /* Dark Blue */
+            --accent: #0f3460; /* Rich Blue */
+            --light: #e2e2e2; /* Light Gray */
+            --gold: #99744A;   /* Vibrant Coral */
+            --dark: #0d0d1a; /* Almost Black */
+        }
+        
+        body {
+            font-family:  'Times New Roman';
+            background: linear-gradient(135deg, #0f0f1b 0%, #1a1a2e 100%);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: 800;
+        }
+        
+        /* Navbar styling */
+        .navbar {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #99744A;
+        }
+        
+        .navbar-brand {
+            font-family: 'Playfair Display';
+            font-weight: 800;
+            font-size: 2rem;
+            color: var(--gold) !important;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-link {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--light) !important;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: color 0.3s ease;
+            font-size: 1.05rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--gold) !important;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after {
+            width: 70%;
+        }
+        
+        /* Hero section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            padding-right: 2rem;
+        }
+        
+        .hero-title {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--light);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            max-width: 600px;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        
+        .btn-explore {
+            background: var(--gold);
+            color: white !important;
+            border: none;
+            padding: 0.9rem 2.8rem;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 20px #99744A;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-explore:hover {
+            background: #0f3460;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px #99744A;
+        }
+        
+        /* Floating image container */
+        .image-container {
+            position:relative;
+            height:750px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            animation: float 6s ease-in-out infinite;
+            max-width: 100%;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: brightness(1.1) contrast(1.1);
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-25px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        
+        /* Stats card - positioned at bottom right of image */
+        .stats-card {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(26, 26, 46, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid #99744A
+            max-width: 220px;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            border-color: #99744A;
+        }
+        
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--gold);
+            margin-bottom: 0.3rem;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .stats-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--light);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .stats-icon {
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        /* Decorative elements */
+        .decoration {
+            position: absolute;
+            opacity: 0.05;
+            z-index: 0;
+            color: var(--gold);
+        }
+        
+        .decoration-1 {
+            top: 10%;
+            left: 5%;
+            font-size: 4rem;
+        }
+        
+        .decoration-2 {
+            bottom: 15%;
+            right: 8%;
+            font-size: 3rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            padding: 4rem 0 2rem;
+            margin-top: 5rem;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid #99744A;
+        }
+        
+        .footer-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+        
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #99744A;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            transition: all 0.3s ease;
+            color: var(--light);
+            font-size: 1.1rem;
+        }
+        
+        .social-icon:hover {
+            background: var(--gold);
+            transform: translateY(-3px);
+            color: var(--dark);
+        }
+        
+        .footer-link {
+            color: var(--light) !important;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .footer-link:hover {
+            color: var(--gold) !important;
+            text-decoration: underline;
+        }
+        
+        /* Contact info styling */
+        .contact-info i {
+            color: var(--gold);
+            margin-right: 12px;
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3.2rem;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 3rem;
+                text-align: center;
+            }
+            
+            .hero-subtitle {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .stats-card {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                margin: 2rem auto 0;
+                max-width: 250px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .nav-link {
+                margin: 0 0.3rem;
+                font-size: 0.95rem;
+            }
+            
+            .btn-explore {
+                padding: 0.8rem 2.2rem;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .stats-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Artopia</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="qwenhome.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="qwengallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="qwenartists.html">Artists</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="qwenservices.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="qwenabout.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="qwencontact.html">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Decorative Elements -->
+    <div class="decoration decoration-1">
+        <i class="fas fa-brush"></i>
+    </div>
+    <div class="decoration decoration-2">
+        <i class="fas fa-paint-roller"></i>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content">
+                    <h1 class="hero-title">Artopia</h1>
+                    <p class="hero-subtitle">Discover a world of digital creativity and artistic expression. Our virtual gallery showcases groundbreaking works from visionary artists around the globe, blending technology with timeless aesthetics.</p>
+                    <a href="#" class="btn btn-explore">Explore Gallery</a>
+                </div>
+                <div class="col-lg-6 text-center position-relative">
+                    <div class="image-container">
+                        <img src="image.png" 
+                             alt="Digital Art Showcase" 
+                             class="hero-image">
+                        <div class="stats-card">
+                            <div class="stats-number">500+</div>
+                            <div class="stats-text">Art Campaigns</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h3 class="footer-title">Artopia</h3>
+                    <p class="mb-3">Where digital art meets imagination in a boundless virtual space.</p>
+                    <div class="mt-3">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-pinterest"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h4 class="footer-title">Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="qwengallery.html" class="footer-link">Gallery</a></li>
+                        <li class="mb-2"><a href="qwenartists.html" class="footer-link">Featured Artists</a></li>
+                        <li class="mb-2"><a href="qwenservices.html" class="footer-link">Art Services</a></li>
+                        <li class="mb-2"><a href="qwenabout.html" class="footer-link">About Us</a></li>
+                        <li class="mb-2"><a href="qwenhome.html" class="footer-link">Home</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="footer-title">Contact Us</h4>
+                    <div class="contact-info mb-3">
+                        <p><i class="fas fa-envelope"></i> info@artopia.com</p>
+                        <p><i class="fas fa-phone"></i> +92 3123-4567</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Virtual Gallery, Worldwide</p>
+                    </div>
+                    <div class="mt-3">
+                        <p class="mb-1"><i class="fas fa-clock me-2"></i> Open 24/7</p>
+                        <p><i class="fas fa-globe me-2"></i> www.artopia.com</p>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(233, 69, 96, 0.2);">
+            <div class="text-center">
+                <p class="mb-0">© 2023 Artopia. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
